@@ -34,7 +34,25 @@ A Blank Document opens up into which the following source code can be typed down
 
 ## Source Code – Using Case Statement :
 
-(Include program here)
+module alu_32bit_case(y,a,b,f);
+input [31:0]a;
+input [31:0]b;
+input [2:0]f;
+output reg [31:0]y;
+always@(*)
+begin
+case(f)
+3'b000:y=a&b; //AND Operation
+3'b001:y=a|b; //OR Operation
+3'b010:y=~(a&b); //NAND Operation
+3'b011:y=~(a|b); //NOR Operation
+3'b100:y=a^b; //XOR Operation
+3'b101:y=~(a^b); //XNOR Operation
+3'b110:y=~a; //NOT of a
+3'b111:y=~b; //NOT of b
+endcase
+end
+endmodule
 
 Use Save option or Ctrl+S to save the code or click on the save option from the top most right corner and close the text file.
 
@@ -44,7 +62,27 @@ Similarly, create your test bench using gedit <filename_tb>.v or <filename_tb>.v
 
 ## Test Bench :
 
-(Include test bench program here)
+module alu_32bit_tb_case;
+reg [31:0]a;
+reg [31:0]b;
+reg [2:0]f;
+wire [31:0]y;
+alu_32bit_case test2(.y(y),.a(a),.b(b),.f(f));
+initial
+begin
+a=32'h00000000;
+b=32'h10101010;
+#10 f=3'b000;
+#10 f=3'b001;
+#10 f=3'b010;
+#10 f=3'b011;
+#10 f=3'b100;
+#10 f=3'b101;
+#10 f=3'b110;
+#10 f=3'b111;
+#50 $finish;
+end
+endmodule
 
 Use Save option or Ctrl+S to save the code or click on the save option from the top most right corner and close the text file.
 
@@ -61,6 +99,8 @@ source /cadence/install/cshrc (mention the path of the tools)
 After this you can see the window like below 
 
 ### Fig 2: Invoke the Cadence Environment
+![innnvoke](https://github.com/user-attachments/assets/909b4162-b26d-46cf-89f4-db9e8f337d1a)
+
 
 To Launch Simulation tool 
 
@@ -74,12 +114,16 @@ or
 It will invoke the nclaunch window for functional simulation we can compile,elaborate and simulate it using Multiple Step .
 
 ### Fig 3: Setting Multi-step simulation
+![mul](https://github.com/user-attachments/assets/4ea21689-ae5f-4639-b2f5-eedd1d310010)
+
 
 Select Multiple Step and then select “Create cds.lib File” as shown in below figure 
 
 Click the cds.lib file and save the file by clicking on Save option 
 
 ### Fig 4:cds.lib file Creation
+![cds](https://github.com/user-attachments/assets/715afa68-550f-452e-b6c5-6429f4c1fa49)
+
 
 Save cds.lib file and select the correct option for cds.lib file format based on the HDL Language and Libraries used. 
 
@@ -102,6 +146,8 @@ Worklib is the directory where all the compiled codes are stored while Snapshot 
 To perform the function simulation, the following three steps are involved Compilation, Elaboration and Simulation. 
 
 ### Fig 6: Nclaunch Window
+![nc](https://github.com/user-attachments/assets/5652666f-5ce2-40b3-9123-cf6d4fae5630)
+
 
 ## Step 1: Compilation:
 
@@ -160,6 +206,8 @@ Outputs: Elaborate database updated in mapped library if successful, generates r
 After elaboration the file will come under snapshot. Select the test bench and simulate it.
 
 ## Fig 8: Elaboration Launch Option
+![test](https://github.com/user-attachments/assets/e757cca5-5da9-4bcf-a3c0-b08443cc3ebe)
+
 
 ## Step 3: Simulation: 
 
@@ -174,10 +222,18 @@ Simulation allow to dump design and test bench signals into a waveform
 Steps for simulation – Run the simulation command with simulator options
 
 ## Fig 9: Design Browser window for simulation
+![test](https://github.com/user-attachments/assets/7014a610-3153-4d71-91ec-efcad4e4a1c6)
+
+
 
 ## Fig 10:Simulation Waveform Window
+![sim](https://github.com/user-attachments/assets/2a04d3c2-7ca6-4303-bce3-6ed3efb1fa51)
+
 
 ## Fig 11:Simulation Waveform Window
+![sim](https://github.com/user-attachments/assets/5620ec08-2d05-4577-8317-23c5754db23b)
+
+
 
 ### Result
 
